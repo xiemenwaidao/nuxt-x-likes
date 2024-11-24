@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import Tweet from '@/components/Tweet.vue';
 import {
   Card,
   CardContent,
@@ -19,7 +20,7 @@ import {
       <!--  -->
     </CardContent>
     <CardFooter class="flex justify-between px-6 pb-6">
-      <!--  -->
+      <Tweet id="1860134630911017450" />
     </CardFooter>
   </Card>
 </template>

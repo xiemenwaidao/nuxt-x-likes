@@ -15,4 +15,14 @@ export default defineNuxtConfig({
      */
     componentDir: './components/ui',
   },
+  app: {
+    head: {
+      script: [
+        {
+          src: 'https://platform.twitter.com/widgets.js',
+          async: true,
+        },
+      ],
+    },
+  },
 });
