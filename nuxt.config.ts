@@ -25,4 +25,13 @@ export default defineNuxtConfig({
       ],
     },
   },
+  runtimeConfig: {
+    awsAccessKeyId: process.env.AWS_ACCESS_KEY_ID,
+    awsSecretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+
+    public: {
+      awsRegion: process.env.AWS_REGION,
+      awsBucketName: process.env.AWS_BUCKET_NAME,
+    },
+  },
 });
