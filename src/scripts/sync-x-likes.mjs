@@ -1,3 +1,7 @@
+/**
+ * TODO: tsじゃないのはnuxtのtsconfigとバッティングするからです。
+ */
+
 import {
   S3Client,
   ListObjectsV2Command,
@@ -42,6 +46,11 @@ if (
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
+// 最終取得日時ファイルの保存先
+const lastSyncSavePathList = ['src', 'scripts', 'last-sync.txt'];
+// jsonの保存先ディレクトリ
+const SaveJsonBaseDirPathList = ['src', 'assets', 'data', 'x', 'likes'];
+
 // bucket名/tweets/202411
 const s3bucketMainDir = 'tweets';
 
@@ -60,7 +69,7 @@ const getNowDate = () => {
 };
 
 async function getLastSyncTime() {
-  const syncFilePath = join(process.cwd(), 'src', 'scripts', 'last-sync.txt');
+  const syncFilePath = join(process.cwd(), ...lastSyncSavePathList);
   try {
     const data = await fs.readFile(syncFilePath, 'utf8');
     const trimmedDate = data.trim();
@@ -107,7 +116,7 @@ async function downloadNewFiles() {
     if (newFiles.length === 0) return;
 
     // ベースとなるデータディレクトリを作成
-    const baseDir = join(process.cwd(), 'src', 'public', 'data');
+    const baseDir = join(process.cwd(), ...SaveJsonBaseDirPathList);
     await fs.mkdir(baseDir, { recursive: true });
 
     // 年月ディレクトリを作成
@@ -158,7 +167,7 @@ async function downloadNewFiles() {
     console.log(`Skipped: ${skippedCount}`);
 
     await fs.writeFile(
-      join(process.cwd(), 'src', 'scripts', 'last-sync.txt'),
+      join(process.cwd(), ...lastSyncSavePathList),
       new Date().toISOString(),
     );
   } catch (error) {
