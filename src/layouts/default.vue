@@ -4,6 +4,7 @@ import { useCalendarStore } from '@/store/calendarStore';
 import {
   type DateValue,
   getLocalTimeZone,
+  parseDate,
   today,
 } from '@internationalized/date';
 import { type Ref, ref } from 'vue';
@@ -31,6 +32,7 @@ const value = ref(date) as Ref<DateValue>;
           v-model="value"
           :weekday-format="'short'"
           class="rounded-md border"
+          :min-value="parseDate('2024-11-10')"
           :max-value="today(getLocalTimeZone())"
           @update:model-value="onClickDate"
         />
