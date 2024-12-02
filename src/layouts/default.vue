@@ -38,7 +38,7 @@ const value = ref(date) as Ref<DateValue>;
 
       <div class="mt-8">
         <h1 class="text-center">
-          liked on: {{ date.toString().split('-').join('/') }}
+          liked on: {{ value.toString().split('-').join('/') }}
         </h1>
         <NuxtPage />
       </div>
