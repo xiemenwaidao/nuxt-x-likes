@@ -25,3 +25,7 @@ logs
 
 # custom
 *.csv
+
+# 一時的
+src/assets/data/*
+# src/content/likes/*

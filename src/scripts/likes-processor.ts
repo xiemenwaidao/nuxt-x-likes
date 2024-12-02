@@ -4,9 +4,7 @@ import matter from 'gray-matter'; // フロントマター処理用
 import type { Like } from '../types/x/like';
 import { getTweetIdFromUrl } from '../utils/tweet-helper';
 
-interface CustomLike extends Like {
-  tweetId?: string | number;
-}
+function getTweetEmbedHtml(tweetId: string) {}
 
 export async function processAndGenerateContent() {
   try {
@@ -30,7 +28,7 @@ export async function processAndGenerateContent() {
               string,
               {
                 tweets: {
-                  [key: number]: CustomLike;
+                  [key: number]: Like;
                 }[];
               }
             >;
@@ -45,12 +43,12 @@ export async function processAndGenerateContent() {
       files.forEach((file) => {
         if (!file.endsWith('.json')) return;
 
-        const data: CustomLike = JSON.parse(
+        const data: Like = JSON.parse(
           readFileSync(join(dataDir, yearMonth, file), 'utf-8'),
         );
         const tweetId = getTweetIdFromUrl(data['tweet_url']);
         if (!tweetId) return;
-        data.tweetId = tweetId;
+        data.tweet_id = tweetId;
 
         const date = new Date(data.liked_at);
         const year = date.getFullYear().toString();
@@ -95,7 +93,7 @@ export async function processAndGenerateContent() {
 
       Object.entries(yearData.months).forEach(([month, monthData]) => {
         Object.entries(monthData.days).forEach(([day, dayData]) => {
-          const dayContentArray: CustomLike[] = [];
+          const dayContentArray: Like[] = [];
 
           Object.entries(dayData).forEach(([tweets, tweetDataArray]) => {
             tweetDataArray.map((tweetData) => {

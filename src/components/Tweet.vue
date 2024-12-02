@@ -18,23 +18,39 @@ const tweetNotFound = ref(false);
 async function create(retries = 10) {
   // @ts-expect-error global
   if (!window.twttr?.widgets?.createTweet) {
-    if (retries <= 0)
-      return console.error('Failed to load Twitter widget after 10 retries.');
+    if (retries <= 0) {
+      console.error(`Failed to load Twitter widget after ${retries} retries.`);
+      loaded.value = true;
+      tweetNotFound.value = true;
+      return;
+    }
     setTimeout(() => create(retries - 1), 1000);
     return;
   }
-  // @ts-expect-error global
-  const element = await window.twttr.widgets.createTweet(
-    props.id.toString(),
-    tweet.value,
-    {
-      theme: 'dark',
-      // conversation: props.conversation || 'none',
-      // cards: props.cards,
-    },
-  );
-  loaded.value = true;
-  if (element === undefined) tweetNotFound.value = true;
+
+  try {
+    // @ts-expect-error global
+    const element = await window.twttr.widgets.createTweet(
+      props.id.toString(),
+      tweet.value,
+      {
+        theme: 'dark',
+        // conversation: props.conversation || 'none',
+        // cards: props.cards,
+        dnt: true,
+      },
+    );
+
+    // console.log(element);
+
+    loaded.value = true;
+    if (element === undefined) {
+      loaded.value = true;
+      tweetNotFound.value = true;
+    }
+  } catch (error) {
+    console.error(error);
+  }
 }
 
 onMounted(() => {
@@ -43,9 +59,9 @@ onMounted(() => {
 </script>
 
 <template>
-  <div ref="tweet">
-    <div v-if="!loaded">...loading</div>
-    <div v-if="tweetNotFound">tweetNotFound</div>
+  <div ref="tweet" :data-tweet-id="id">
+    <!-- <div v-if="!loaded">...loading</div>
+    <div v-if="tweetNotFound">tweet not found</div> -->
   </div>
 </template>
 

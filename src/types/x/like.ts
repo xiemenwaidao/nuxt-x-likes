@@ -7,5 +7,5 @@ export interface Like {
   embed_code?: string;
   liked_at: string;
   source: 'ifttt';
-  // tweet_id?: string;
+  tweet_id?: string;
 }
