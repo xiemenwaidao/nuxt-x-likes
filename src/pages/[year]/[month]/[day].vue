@@ -1,8 +1,5 @@
 <script setup lang="ts">
 import Tweet from '@/components/Tweet.vue';
-import Card from '@/components/ui/card/Card.vue';
-import CardContent from '@/components/ui/card/CardContent.vue';
-import CardFooter from '@/components/ui/card/CardFooter.vue';
 import type { Like } from '@/types/x/like';
 import type { RouteParamsGeneric } from 'vue-router';
 
@@ -29,18 +26,10 @@ const { data } = await useAsyncData<DayJson>(
 );
 
 const tweetList = data.value?.body ?? [];
-
-// if (!data.value?.body) {
-//   await navigateTo(`/`);
-// }
-
-// console.log(data.value?.body);
 </script>
 
 <template>
   <div class="">
-    <!-- <h1 class="text-center">{{ year }}/{{ month }}/{{ day }}</h1> -->
-
     <div class="w-full max-w-md mx-auto space-y-4 p-0">
       <template v-for="(tweetData, index) in tweetList">
         <!-- <Card class="p-0">
