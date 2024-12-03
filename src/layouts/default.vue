@@ -82,7 +82,7 @@ const dateRef = ref(date) as Ref<DateValue | undefined>;
   <div class="container">
     <div
       class="py-8 calendar-wrapper"
-      :class="{ 'h-screen grid place-items-center': isTopPage }"
+      :class="{ 'h-svh grid place-items-center': isTopPage }"
     >
       <div>
         <div class="flex items-center justify-center">
