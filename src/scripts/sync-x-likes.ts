@@ -151,7 +151,7 @@ async function downloadNewFiles() {
 
       console.log(`Found ${newFiles.length} new files to download`);
 
-      if (newFiles.length === 0) return;
+      if (newFiles.length === 0) continue;
 
       // ベースとなるデータディレクトリを作成
       const baseDir = join(process.cwd(), ...SaveJsonBaseDirPathList);

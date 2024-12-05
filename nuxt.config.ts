@@ -86,10 +86,13 @@ export default defineNuxtConfig({
     public: {
       awsRegion: process.env.AWS_REGION,
       awsBucketName: process.env.AWS_BUCKET_NAME,
+      timezone: 'Asia/Tokyo',
     },
   },
 
   experimental: {
     viewTransition: true,
   },
+
+  // sourcemap: true,
 });

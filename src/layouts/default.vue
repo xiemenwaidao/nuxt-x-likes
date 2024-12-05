@@ -70,12 +70,9 @@ const isDateDisabled: CalendarRootProps['isDateDisabled'] = (
 const route = useRoute();
 const isTopPage = computed(() => route.path === '/');
 
-const { date, dateStr, setDate, parseUrlDate } = useCalendarStore();
-// if (date === undefined) {
-//   parseUrlDate(route.path);
-// }
+const { date, setDate } = useCalendarStore();
 
-const dateRef = ref(date) as Ref<DateValue | undefined>;
+const dateRef = ref(date ?? undefined) as Ref<DateValue | undefined>;
 </script>
 
 <template>
